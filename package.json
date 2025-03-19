@@ -1,5 +1,9 @@
 {
-  "name": "nuxt-app",
+  "name": "swatch",
+  "author": {
+    "name": "StacheNoisy",
+    "github": "stachenoisy"
+  },
   "private": true,
   "type": "module",
   "scripts": {
