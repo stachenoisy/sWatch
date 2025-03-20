@@ -1,75 +1,32 @@
-# Nuxt Minimal Starter
+# Simple Movie & Series watching platform.
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
-## Setup
-
-Make sure to install dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
+# Run
+## Build Project
+```Bash
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
-
-Locally preview production build:
-
-```bash
-# npm
+## Run Dev Preview Project
+```Bash
+npm run dev
+```
+## Run Release Preview Project
+```Bash
 npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+# Useful Links
+- [Nuxt.JS](https://nuxt.com/docs/)
+- [Icons](https://pictogrammers.com/library/mdi/)
+- [Tailwind](https://tailwindcss.com/)
+- [Auto-Animate](https://auto-animate.formkit.com/)
+
+# Pages
+- / (Root Mainpage)
+- /browse (All Movies & Series)
+- /movies (All Movies)
+- /profile (Profile)
+- /settings (Profile Settings)
+- /help (Help Fact)
+- /privacy (Privacy Policy Texts)
+- /terms (Terms of Service Texts)
+- /watchlist (Watch List)
