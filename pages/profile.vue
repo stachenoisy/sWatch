@@ -62,8 +62,6 @@
 </template>
 
 <script setup>
-import { getProfile, getRecentWatches } from '~/composables/bridge';
-
 const profile = ref({});
 const loading = ref(true);
 

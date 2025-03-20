@@ -8,7 +8,11 @@ export default defineEventHandler(async (event) => {
       throw new Error('Video ID is required');
     }
 
-    const result = await api.video.getVideo(query.id);
+    if (!query.type) {
+      throw new Error('Video Type is required');
+    }
+
+    const result = await api.video.getVideo(query.id, query.type, query.lang);
     
     return {
       success: true,

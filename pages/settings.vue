@@ -57,8 +57,6 @@
 </template>
 
 <script setup>
-import { getProfile } from '~/composables/bridge';
-
 const profile = ref({});
 const loading = ref(true);
 

@@ -1,6 +1,8 @@
-export async function getVideo(videoID: string) {
+const lang = 'en-US';
+
+export async function getVideo(videoID: string, type: string) {
     try {
-        const response = await $fetch(`/api/video/get?id=${videoID}`);
+        const response = await $fetch(`/api/video/get?id=${videoID}&type=${type}&lang=${lang}`);
 
         if ('data' in response) {
             return response.data;
@@ -26,9 +28,9 @@ export async function getWatchlist(userID: string) {
     }
 }
 
-export async function getMovies() {
+export async function getMovies(type: string, page: number) {
     try {
-        const response = await $fetch('/api/movies/get');
+        const response = await $fetch(`/api/movies/get?type=${type}&page=${page}&lang=${lang}`);
 
         if ('data' in response) {
             return response.data;
@@ -40,9 +42,9 @@ export async function getMovies() {
     }
 }
 
-export async function getSeries() {
+export async function getSeries(type: string, page: number) {
     try {
-        const response = await $fetch('/api/series/get');
+        const response = await $fetch(`/api/series/get?type=${type}&page=${page}&lang=${lang}`);
 
         if ('data' in response) {
             return response.data;
@@ -54,9 +56,9 @@ export async function getSeries() {
     }
 }
 
-export async function getGenres() {
+export async function getGenres(type: string) {
     try {
-        const response = await $fetch('/api/genres/get');
+        const response = await $fetch(`/api/genres/get?type=${type}&lang=${lang}`);
 
         if ('data' in response) {
             return response.data;
