@@ -1,26 +1,26 @@
 # Simple Movie & Series watching platform.
 
-# Run
-## Build Project
+## Run
+### Build Project
 ```Bash
 npm run build
 ```
-## Run Dev Preview Project
+### Run Dev Preview Project
 ```Bash
 npm run dev
 ```
-## Run Release Preview Project
+### Run Release Preview Project
 ```Bash
 npm run preview
 ```
 
-# Useful Links
+## Useful Links
 - [Nuxt.JS](https://nuxt.com/docs/)
 - [Icons](https://pictogrammers.com/library/mdi/)
 - [Tailwind](https://tailwindcss.com/)
 - [Auto-Animate](https://auto-animate.formkit.com/)
 
-# Pages
+## Pages
 - / (Root Mainpage)
 - /browse (All Movies & Series)
 - /movies (All Movies)
