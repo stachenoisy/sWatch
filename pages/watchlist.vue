@@ -45,8 +45,6 @@
 </template>
 
 <script setup>
-import { getVideo, getWatchlist } from '~/composables/bridge';
-
 const activeTab = ref('all');
 const watchlist = ref([]);
 

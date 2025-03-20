@@ -5,9 +5,9 @@
         <div class="flex items-center">
           <NuxtLink to="/" class="text-blue-500 font-bold text-xl mr-8">sWatch</NuxtLink>
           <div class="hidden md:flex space-x-6">
-            <NuxtLink to="/browse" class="text-gray-300 hover:text-white transition">Browse</NuxtLink>
-            <NuxtLink to="/movies" class="text-gray-300 hover:text-white transition">Movies</NuxtLink>
-            <NuxtLink to="/series" class="text-gray-300 hover:text-white transition">TV Series</NuxtLink>
+            <NuxtLink to="/browse" :class="{ 'text-white drop-shadow-[5px_5px_rgba(255,255,255,0.03)]': useRoute().name == 'browse' }" class="text-gray-300 hover:text-white transition">Browse</NuxtLink>
+            <NuxtLink to="/movies" :class="{ 'text-white drop-shadow-[5px_5px_rgba(255,255,255,0.03)]': useRoute().name == 'movies' }" class="text-gray-300 hover:text-white transition">Movies</NuxtLink>
+            <NuxtLink to="/series" :class="{ 'text-white drop-shadow-[5px_5px_rgba(255,255,255,0.03)]': useRoute().name == 'series' }" class="text-gray-300 hover:text-white transition">TV Series</NuxtLink>
           </div>
         </div>
         
@@ -19,7 +19,7 @@
               class="bg-gray-800 text-white px-4 py-2 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
           </div>
-          <NuxtLink to="/profile" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition">
+          <NuxtLink to="/profile" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition disabled-button">
             <span class="sr-only">Profile</span>
             <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
               <span class="font-bold">U</span>

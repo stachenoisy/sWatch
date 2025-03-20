@@ -12,7 +12,7 @@
 
       <select v-model="selectedGenre" class="bg-gray-800 border border-gray-700 rounded px-4 py-2">
         <option value="">All Genres</option>
-        <option v-for="genre in genres" :key="genre" :value="genre">{{ genre }}</option>
+        <option v-for="genre in genres" :key="genre" :value="genre.id">{{ genre.name }}</option>
       </select>
       
       <select v-model="selectedYear" class="bg-gray-800 border border-gray-700 rounded px-4 py-2">
@@ -42,8 +42,6 @@
 </template>
 
 <script setup>
-import { getMovies, getSeries } from '~/composables/bridge';
-
 const selectedType = ref('');
 const selectedGenre = ref('');
 const selectedYear = ref('');
@@ -52,19 +50,19 @@ const sortBy = ref('newest');
 const videos = ref([]);
 
 // Extract unique genres and years for filters
-const genres = [...new Set(videos.value.flatMap(video => video.genres))].sort();
-const years = [...new Set(videos.value.map(video => video.year))].sort((a, b) => b - a);
+let genres = [];
+let years = [];
 
 // Filter and sort videos based on user selection
 const filteredVideos = computed(() => {
   let result = videos.value;
   
   if (selectedGenre.value) {
-    result = result.filter(video => video.genres.includes(selectedGenre.value));
+    result = result.filter(video => video.genre_ids.includes(selectedGenre.value));
   }
   
   if (selectedYear.value) {
-    result = result.filter(video => video.year === selectedYear.value);
+    result = result.filter(video => video.release_date === selectedYear.value);
   }
 
   if (selectedType.value) {
@@ -74,9 +72,9 @@ const filteredVideos = computed(() => {
   // Sort results
   switch(sortBy.value) {
     case 'newest':
-      return result.sort((a, b) => b.year - a.year);
+      return result.sort((a, b) => b.release_date - a.release_date);
     case 'oldest':
-      return result.sort((a, b) => a.year - b.year);
+      return result.sort((a, b) => a.release_date - b.release_date);
     case 'az':
       return result.sort((a, b) => a.title.localeCompare(b.title));
     case 'za':
@@ -94,12 +92,31 @@ function resetFilters() {
 }
 
 onMounted(async () => {
-  const moviesData = await getMovies();
-  const seriesData = await getSeries();
+  const moviesData = await getMovies('popular', 1);
+  const seriesData = await getSeries('popular', 1);
+  const moviesGenresData = await getGenres('movie');
+  const seriesGenresData = await getGenres('tv');
 
-  moviesData.forEach(video => video.type = 'movies');
-  seriesData.forEach(video => video.type = 'series');
+  const allMovies = moviesData.results;
+  const allSeries = seriesData.results;
+  const genresList = [...moviesGenresData.genres, ...seriesGenresData.genres].reduce((acc, genre) => {
+    acc[genre.id] = genre.name;
+    return acc;
+  }, {});
+
   
-  videos.value = [...moviesData, ...seriesData];
+  allMovies.forEach(video => video.type = 'movies');
+  allSeries.forEach(video => video.type = 'series');
+  
+  videos.value = [...allMovies, ...allSeries];
+  
+  genres = [...new Set(videos.value.flatMap(video => video.genre_ids))].map(genre => {
+    return {
+      id: genre,
+      name: genresList[genre]
+    };
+  })
+
+  years = [...new Set(videos.value.map(video => video.release_date))].sort((a, b) => b - a);
 });
 </script>

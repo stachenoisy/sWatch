@@ -19,6 +19,8 @@ npm run preview
 - [Icons](https://pictogrammers.com/library/mdi/)
 - [Tailwind](https://tailwindcss.com/)
 - [Auto-Animate](https://auto-animate.formkit.com/)
+- [TMDB API](https://developer.themoviedb.org/reference/movie-details)
+- [API Server](http://localhost:8080/swagger)
 
 ## Pages
 - / (Root Mainpage)

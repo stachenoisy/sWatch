@@ -28,30 +28,39 @@
 </template>
 
 <script setup>
-import { getMovies, getSeries } from '~/composables/bridge';
-
 const movies = ref([]);
 const series = ref([]);
 
 const continueWatching = ref([]);
 
 const featuredContent = {
-  id: '1',
-  title: 'The Tomorrow War',
-  description: 'A family man is drafted to fight in a future war where the fate of humanity relies on his ability to confront the past.',
-  backdropImage: 'https://placehold.co/1920x1080',
-  year: '2021',
-  duration: '2h 18m',
-  rating: 'PG-13'
+  adult: false,
+  backdrop_path: "/2siOHQYDG7gCQB6g69g2pTZiSia.jpg",
+  genre_ids: [10751, 14],
+  id: 447273,
+  original_language: "en",
+  original_title: "Snow White",
+  overview: "A princess joins forces with seven dwarfs to liberate her kingdom from her cruel stepmother, the Evil Queen.",
+  popularity: 30.454,
+  poster_path: "/xWWg47tTfparvjK0WJNX4xL8lW2.jpg",
+  release_date: "2025-03-19",
+  title: "Snow White",
+  video: false,
+  vote_average: 4.018,
+  vote_count: 84,
 };
 
 
 onMounted(async () => {
   // Fetch movies
-  movies.value = await getMovies();
+  const moviesData = await getMovies('popular', 1);
+  const allMovies = moviesData.results;
+  movies.value = allMovies;
  
   // Fetch series
-  series.value = await getSeries();
+  const seriesData = await getSeries('popular', 1);
+  const allSeries = seriesData.results;
+  series.value = allSeries;
 
   // Set continue watching to movies
   continueWatching.value = movies.value.slice(0, 2);

@@ -1,8 +1,8 @@
 import * as dummyData from '~/dev/dummyData';
-import get from './genres/get';
 
 const config = useRuntimeConfig();
-const isDevelopment = () => process.env.NODE_ENV === 'development';
+// const isDevelopment = () => process.env.NODE_ENV === 'development';
+const isDevelopment = () => false;
 
 /**
  * API çağrılarını işleyen genel fonksiyon
@@ -49,13 +49,13 @@ export async function fetchData(endpoint, options = {}) {
   
   // Development mod kapalıysa, gerçek API'yi çağır
   try {
-    const API_BASE_URL = config.public.apiUrl;
+    const API_BASE_URL = config.apiUrl;
     const API_TOKEN = config.apiToken; // Get the API token from config
     
     const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${API_TOKEN}`, // Add the token to headers
+        'Authorization': `Bearer ${API_TOKEN}`,
         ...options.headers
       },
       ...options
@@ -72,8 +72,8 @@ export async function fetchData(endpoint, options = {}) {
   }
 }
 
-// API çağrılarını yöneten predefined fonksiyonlar
-export const api = {
+// Development modunda çalışacak API çağrıları
+const apiDevelopmentRoutes = {
   getMovies: () => fetchData('movies'),
   getSeries: () => fetchData('series'),
   getGenres: () => fetchData('genres'),
@@ -92,3 +92,27 @@ export const api = {
     getWatchList: (id) => fetchData(`profiles/${id}/watchlist`), 
   },
 };
+
+// API Çağırıları
+const apiRoutes = {
+  getMovies: (type, page, lang) => fetchData(`movies/${type}/${page}/${lang}`),
+  getSeries: (type, page, lang) => fetchData(`series/${type}/${page}/${lang}`),
+  getGenres: (type, lang) => fetchData(`genres/${type}/${lang}`),
+
+  video: {
+    getVideo: (id, type, lang) => fetchData(`video/get/${type}/${id}/${lang}`),
+    getArray: (ids) => {
+      return fetchData('video/getArray', {
+        body: JSON.stringify({ ids }),
+      })
+    },
+  },
+
+  profile: {
+    getProfile: (id) => fetchData(`profiles/${id}`),
+    getWatchList: (id) => fetchData(`profiles/${id}/watchlist`), 
+  },
+};
+
+// API çağrılarını yöneten predefined fonksiyonlar
+export const api = isDevelopment() ? apiDevelopmentRoutes : apiRoutes;
