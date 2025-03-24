@@ -50,7 +50,6 @@ const featuredContent = {
   vote_count: 84,
 };
 
-
 onMounted(async () => {
   // Fetch movies
   const moviesData = await getMovies('popular', 1);

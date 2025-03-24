@@ -20,7 +20,7 @@
       <section class="mb-10">
         <h2 class="text-2xl font-bold mb-4">Popular Series</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          <VideoCard v-for="series in filteredTopSeries" :key="series.id" :video="series" />
+          <VideoCard v-for="series in filteredPopularSeries" :key="series.id" :video="series" />
         </div>
       </section>
       
@@ -81,6 +81,7 @@ const filteredAwardSeries = computed(() => {
 });
 
 onMounted(async () => {
+  // We get the page data by sending a request via API
   const seriesData = await getSeries('popular', 1);
   const seriesGenresData = await getGenres('tv');
   
@@ -90,6 +91,7 @@ onMounted(async () => {
     return acc;
   }, {});
 
+  // We are making species listable (taken from inside the videos).
   genres.value = [...new Set(allSeries.flatMap(video => video.genre_ids))].map(genre => {
     return {
       id: genre,
@@ -97,8 +99,9 @@ onMounted(async () => {
     };
   })
   
-  popularSeries.value = allSeries || [];
-  newReleases.value = [...popularSeries.value].sort(() => 0.5 - Math.random());
-  awardWinning.value = [...popularSeries.value].sort(() => 0.5 - Math.random());
+  // Imitate popular, new releases and award winners.
+  popularSeries.value = (allSeries || []).slice(0, 5);
+  newReleases.value = [...allSeries].sort(() => 0.5 - Math.random());
+  awardWinning.value = [...allSeries].sort(() => 0.5 - Math.random());
 });
 </script>

@@ -20,7 +20,7 @@
         <div>
           <h3 class="text-lg font-bold mb-4">Account</h3>
           <ul class="space-y-2 text-gray-400">
-            <li><NuxtLink to="/profile" class="hover:text-white transition disabled-button">Profile</NuxtLink></li>
+            <li><NuxtLink to="/profile" class="hover:text-white transition">Profile</NuxtLink></li>
             <li><NuxtLink to="/watchlist" class="hover:text-white transition disabled-button">Watchlist</NuxtLink></li>
             <li><NuxtLink to="/settings" class="hover:text-white transition disabled-button">Settings</NuxtLink></li>
             <li><NuxtLink to="/help" class="hover:text-white transition">Help Center</NuxtLink></li>

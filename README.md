@@ -31,4 +31,3 @@ npm run preview
 - /help (Help Fact)
 - /privacy (Privacy Policy Texts)
 - /terms (Terms of Service Texts)
-- /watchlist (Watch List)

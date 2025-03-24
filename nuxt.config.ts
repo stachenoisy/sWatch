@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     baseurl: 'http://localhost:3000',
     apiUrl: 'http://localhost:8080',
-    apiToken: '2285004068',
+    apiToken: '2285004068', // Dummy token
     public: {
       privacyUpdateDate: new Date('2025-03-19').toISOString(),
       termsUpdateDate: new Date('2025-03-20').toISOString()
@@ -25,6 +25,13 @@ export default defineNuxtConfig({
       ]
     }
   },
-  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', 'nuxt-mdi', '@formkit/auto-animate', '@nuxt/fonts'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
+    'nuxt-mdi',
+    '@formkit/auto-animate',
+    '@nuxt/fonts',
+    '@nuxt/scripts',
+  ],
   css: ['~/assets/css/main.css'],
 })

@@ -1,53 +1,12 @@
-import * as dummyData from '~/dev/dummyData';
-
 const config = useRuntimeConfig();
-// const isDevelopment = () => process.env.NODE_ENV === 'development';
-const isDevelopment = () => false;
 
 /**
- * API çağrılarını işleyen genel fonksiyon
+ * API Request handler
  * @param {string} endpoint - API endpoint
- * @param {Object} options - Fetch ayarları
- * @returns {Promise<any>} - API yanıtı
+ * @param {Object} options - Fetch options
+ * @returns {Promise<any>} - API response
  */
 export async function fetchData(endpoint, options = {}) {
-  if (isDevelopment()) {
-    console.log(`[DEV MODE] Fetching dummy data for: ${endpoint}`);
-
-    // Eğer profil endpointi ise
-    if (endpoint.startsWith('profiles')) {
-      const profile = endpoint.split('/');
-      const profileId = profile[1];
-      const secondEndpoint = profile[2];
-
-      return secondEndpoint ? dummyData.profiles[profileId][secondEndpoint] : dummyData.profiles[profileId];
-    }
-
-    // Eğer video endpointi ise
-    if (endpoint.startsWith('video')) {
-      const request = endpoint.split('/');
-      const requestType = request[1];
-
-      if (requestType === 'get') {
-        const videoId = request[2];
-        const allVideos = [...dummyData.movies, ...dummyData.series];
-        return allVideos.find(movie => movie.id == videoId) || {};
-      }
-
-      if (requestType === 'getArray') {
-        const allVideos = [...dummyData.movies, ...dummyData.series];
-        const videoIds = JSON.parse(options.body).ids;
-        return allVideos.filter(movie => videoIds.includes(movie.id));
-      }
-
-      return {};
-    }
-    
-    // Development mod aktifse, dummy verileri döndür
-    return dummyData[endpoint];
-  }
-  
-  // Development mod kapalıysa, gerçek API'yi çağır
   try {
     const API_BASE_URL = config.apiUrl;
     const API_TOKEN = config.apiToken; // Get the API token from config
@@ -72,28 +31,6 @@ export async function fetchData(endpoint, options = {}) {
   }
 }
 
-// Development modunda çalışacak API çağrıları
-const apiDevelopmentRoutes = {
-  getMovies: () => fetchData('movies'),
-  getSeries: () => fetchData('series'),
-  getGenres: () => fetchData('genres'),
-
-  video: {
-    getVideo: (id) => fetchData(`video/get/${id}`),
-    getArray: (ids) => {
-      return fetchData('video/getArray', {
-        body: JSON.stringify({ ids }),
-      })
-    },
-  },
-
-  profile: {
-    getProfile: (id) => fetchData(`profiles/${id}`),
-    getWatchList: (id) => fetchData(`profiles/${id}/watchlist`), 
-  },
-};
-
-// API Çağırıları
 const apiRoutes = {
   getMovies: (type, page, lang) => fetchData(`movies/${type}/${page}/${lang}`),
   getSeries: (type, page, lang) => fetchData(`series/${type}/${page}/${lang}`),
@@ -101,18 +38,11 @@ const apiRoutes = {
 
   video: {
     getVideo: (id, type, lang) => fetchData(`video/get/${type}/${id}/${lang}`),
-    getArray: (ids) => {
-      return fetchData('video/getArray', {
-        body: JSON.stringify({ ids }),
-      })
-    },
   },
 
   profile: {
-    getProfile: (id) => fetchData(`profiles/${id}`),
-    getWatchList: (id) => fetchData(`profiles/${id}/watchlist`), 
+    getProfile: (id) => fetchData(`profiles/get/${id}`),
   },
 };
 
-// API çağrılarını yöneten predefined fonksiyonlar
-export const api = isDevelopment() ? apiDevelopmentRoutes : apiRoutes;
+export const api = apiRoutes;

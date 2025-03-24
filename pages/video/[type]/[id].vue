@@ -7,7 +7,7 @@
     <!-- Video Player -->
     <div class="aspect-w-16 aspect-h-9 bg-black">
       <div class="relative">
-        <video
+        <!-- <video
           ref="videoPlayer"
           class="w-full h-full"
           controls
@@ -15,7 +15,8 @@
         >
           <source :src="video.video == false ? 'https://www.sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4' : video.video" type="video/mp4" />
           Your browser does not support the video tag.
-        </video>
+        </video> -->
+        <ScriptYouTubePlayer :video-id="video.videoid ?? 'cHHLHGNpCSA'" :player-options="{ host: 'https://www.youtube.com' }" />
       </div>
     </div>
     
@@ -76,16 +77,9 @@ const videoType = route.params.type;
 const video = ref({});
 const loading = ref(true);
 
-const similarVideos = [
-  { id: '6', title: 'Edge of Tomorrow', thumbnail: 'https://placehold.co/400x225', year: '2014', duration: '1h 53m' },
-  { id: '7', title: 'The Adam Project', thumbnail: 'https://placehold.co/400x225', year: '2022', duration: '1h 46m' },
-  { id: '8', title: 'Tenet', thumbnail: 'https://placehold.co/400x225', year: '2020', duration: '2h 30m' },
-  { id: '9', title: 'Interstellar', thumbnail: 'https://placehold.co/400x225', year: '2014', duration: '2h 49m' },
-  { id: '10', title: 'Inception', thumbnail: 'https://placehold.co/400x225', year: '2010', duration: '2h 28m' }
-];
-
 onMounted(async () => {
   try {
+    // Getting video data
     video.value = await getVideo(videoId, videoType);
   } catch (error) {
     console.error('Failed to load profile:', error);

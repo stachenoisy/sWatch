@@ -89,7 +89,6 @@ const recentlyWatched = ref([]);
 onMounted(async () => {
   try {
     profile.value = await getProfile(1);
-    recentlyWatched.value = await getRecentWatches(1);
   } catch (error) {
     console.error('Failed to load profile:', error);
   } finally {
