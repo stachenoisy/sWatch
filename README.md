@@ -31,3 +31,6 @@ npm run preview
 - /help (Help Fact)
 - /privacy (Privacy Policy Texts)
 - /terms (Terms of Service Texts)
+
+### This project has a back-end side requirement.
+Requirement src: https://github.com/stachenoisy/sWatch_Server
