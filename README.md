@@ -1,5 +1,8 @@
 # Simple Movie & Series watching platform.
 
+![Banner](/imgs/sWatch_banner.webp)
+![BrowsePage](/imgs/sWatch_browse.webp)
+
 ## Run
 ### Build Project
 ```Bash
