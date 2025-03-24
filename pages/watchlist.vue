@@ -48,7 +48,6 @@
 const activeTab = ref('all');
 const watchlist = ref([]);
 
-// Filter watchlist based on active tab
 const filteredWatchlist = computed(() => {
   if (activeTab.value === 'all') return watchlist.value;
   return watchlist.value.filter(item => item.type === activeTab.value.slice(0, -1));

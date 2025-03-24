@@ -72,13 +72,29 @@ const filteredVideos = computed(() => {
   // Sort results
   switch(sortBy.value) {
     case 'newest':
-      return result.sort((a, b) => b.release_date - a.release_date);
+      return result.sort((a, b) => {
+        let dateA = a.first_air_date || a.release_date;
+        let dateB = b.first_air_date || b.release_date;
+        return new Date(dateB) - new Date(dateA);
+      });
     case 'oldest':
-      return result.sort((a, b) => a.release_date - b.release_date);
+      return result.sort((a, b) => {
+        let dateA = a.first_air_date || a.release_date;
+        let dateB = b.first_air_date || b.release_date;
+        return new Date(dateA) - new Date(dateB);
+      });
     case 'az':
-      return result.sort((a, b) => a.title.localeCompare(b.title));
+      return result.sort((a, b) => {
+        const titleA = a.title || a.name;
+        const titleB = b.title || b.name;
+        return titleA.localeCompare(titleB);
+      });
     case 'za':
-      return result.sort((a, b) => b.title.localeCompare(a.title));
+      return result.sort((a, b) => {
+        const titleA = a.title || a.name;
+        const titleB = b.title || b.name;
+        return titleB.localeCompare(titleA);
+      });
     default:
       return result;
   }
@@ -92,6 +108,7 @@ function resetFilters() {
 }
 
 onMounted(async () => {
+  // We get the page data by sending a request via API
   const moviesData = await getMovies('popular', 1);
   const seriesData = await getSeries('popular', 1);
   const moviesGenresData = await getGenres('movie');
@@ -109,7 +126,9 @@ onMounted(async () => {
   allSeries.forEach(video => video.type = 'series');
   
   videos.value = [...allMovies, ...allSeries];
+  videos.value = videos.value.sort(() => 0.5 - Math.random());
   
+  // We are making species listable (taken from inside the videos).
   genres = [...new Set(videos.value.flatMap(video => video.genre_ids))].map(genre => {
     return {
       id: genre,
@@ -117,6 +136,7 @@ onMounted(async () => {
     };
   })
 
+  // Extract unique years for filters
   years = [...new Set(videos.value.map(video => video.release_date))].sort((a, b) => b - a);
 });
 </script>

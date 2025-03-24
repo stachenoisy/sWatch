@@ -81,6 +81,7 @@ const filteredClassicMovies = computed(() => {
 });
 
 onMounted(async () => {
+  // We get the page data by sending a request via API
   const moviesData = await getMovies('popular', 1);
   const moviesGenresData = await getGenres('movie');
 
@@ -90,6 +91,7 @@ onMounted(async () => {
     return acc;
   }, {});
 
+  // We are making species listable (taken from inside the videos).
   genres.value = [...new Set(allMovies.flatMap(video => video.genre_ids))].map(genre => {
     return {
       id: genre,
@@ -97,6 +99,7 @@ onMounted(async () => {
     };
   })
   
+   // Imitate top rated, new releases and classics.
   topRatedMovies.value = allMovies || [];
   newReleases.value = [...topRatedMovies.value].sort(() => 0.5 - Math.random());
   classicMovies.value = [...topRatedMovies.value].sort(() => 0.5 - Math.random());

@@ -19,7 +19,7 @@
               class="bg-gray-800 text-white px-4 py-2 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
           </div>
-          <NuxtLink to="/profile" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition disabled-button">
+          <NuxtLink to="/profile" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition">
             <span class="sr-only">Profile</span>
             <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
               <span class="font-bold">U</span>

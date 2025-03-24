@@ -7,6 +7,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       options.headers = options.headers || {}
       
       // Add custom header to identify internal requests
+      // We make that the requests sent are sent from the internal.
       options.headers['x-internal-request'] = 'true'
     }
     

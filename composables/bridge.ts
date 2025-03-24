@@ -84,17 +84,3 @@ export async function getProfile(userID: string) {
         console.error('Get Profile error:', error);
     }
 }
-
-export async function getRecentWatches(userID: string) {
-    try {
-        const response = await $fetch(`/api/profile/getRecentWatches?id=${userID}`);
-
-        if ('data' in response) {
-            return response.data;
-        } else {
-            throw new Error('Invalid response format');
-        }
-    } catch (error) {
-        console.error('Get Profile error:', error);
-    }
-}
